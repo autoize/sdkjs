@@ -1095,7 +1095,7 @@ CFootnotesController.prototype.GotoPrevFootnote = function()
 		this.private_SetCurrentFootnoteNoSelection(oPrevFootnote);
 	}
 };
-CFootnotesController.prototype.GetNumberingInfo = function(oPara, oNumPr, oFootnote)
+CFootnotesController.prototype.GetNumberingInfo = function(oPara, oNumPr, oFootnote, isUseReview)
 {
 	var arrFootnotes     = this.LogicDocument.GetFootnotesList(null, oFootnote);
 	var oNumberingEngine = new CDocumentNumberingInfoEngine(oPara, oNumPr, this.Get_Numbering());
@@ -1103,6 +1103,10 @@ CFootnotesController.prototype.GetNumberingInfo = function(oPara, oNumPr, oFootn
 	{
 		arrFootnotes[nIndex].GetNumberingInfo(oNumberingEngine, oPara, oNumPr);
 	}
+
+	if (true === isUseReview)
+		return [oNumberingEngine.GetNumInfo(), oNumberingEngine.GetNumInfo(false)];
+
 	return oNumberingEngine.GetNumInfo();
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

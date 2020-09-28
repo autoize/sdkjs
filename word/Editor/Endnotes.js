@@ -990,7 +990,7 @@ CEndnotesController.prototype.GotoPrevEndnote = function()
 		this.private_SetCurrentEndnoteNoSelection(oPrevEndnote);
 	}
 };
-CEndnotesController.prototype.GetNumberingInfo = function(oPara, oNumPr, oEndnote)
+CEndnotesController.prototype.GetNumberingInfo = function(oPara, oNumPr, oEndnote, isUseReview)
 {
 	var arrEndnotes      = this.LogicDocument.GetEndnotesList(null, oEndnote);
 	var oNumberingEngine = new CDocumentNumberingInfoEngine(oPara, oNumPr, this.Get_Numbering());
@@ -998,6 +998,10 @@ CEndnotesController.prototype.GetNumberingInfo = function(oPara, oNumPr, oEndnot
 	{
 		arrEndnotes[nIndex].GetNumberingInfo(oNumberingEngine, oPara, oNumPr);
 	}
+
+	if (true === isUseReview)
+		return [oNumberingEngine.GetNumInfo(), oNumberingEngine.GetNumInfo(false)];
+
 	return oNumberingEngine.GetNumInfo();
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
